@@ -17,5 +17,5 @@ Interpreter, your code must have a main.exc file,
 Why? Because i'm lazy, delete the example main.exc
 And create another one, now, on it, type:
 
->a
-N
+    >a
+    N
