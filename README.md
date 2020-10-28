@@ -33,9 +33,9 @@ __one__ character a time.
 First of all, they are not the same variables that
 you may know from other languages, they are what you
 call dictionaries in Python, but they have a fixed 
-amount of keys, they have I_VAL and C_VAL, you need to
-specify both when creating a variable, look at this
-example:
+amount of keys, they have I_VAL(INT) and C_VAL(CHAR), 
+you need to specify both when creating a variable, 
+look at this example:
 
     #a h 1234
     >#/-xa
@@ -45,3 +45,17 @@ again, save it as main.exc and run excc, you will see
 this:
 
 > h 1234
+
+I have a few things to explain here, first, the '#'
+is for indicating a variable, like '$' in php. Next,
+we have the declaration of the variable, we used two
+values, h(char) and 1234(int), they must follow that
+model: #c c i...i, where c is CHAR and i is INT. And
+last, we have the /-xa thing, we can break this to:
+
+   / <--- access only the value specified after it
+   - <--- this can be anything except a whitespace
+   x <--- we specify -x to get both the INT and CHAR values
+
+We have some variations, such as /D- and /d- that mean
+respectively non-digit and digit, or CHAR and INT.
