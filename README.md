@@ -19,3 +19,10 @@ And create another one, now, on it, type:
 
     >a
     N
+
+Save the file as main.exc and run excc.
+
+> a
+
+But there is the sad part, you can only print
+__one__ character a time.
