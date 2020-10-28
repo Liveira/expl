@@ -27,7 +27,8 @@ if you did everything alright you will see this:
 > H
 
 But here is the sad part, you can only print
-__one__ character a time.
+__one__ character a time. Oh, and the use of the N
+in the end is simple, it breaks the line.
 
 ###### Variables
 First of all, they are not the same variables that
