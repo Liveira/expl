@@ -53,9 +53,9 @@ values, h(char) and 1234(int), they must follow that
 model: #c c i...i, where c is CHAR and i is INT. And
 last, we have the /-xa thing, we can break this to:
 
-   / <--- access only the value specified after it
-   - <--- this can be anything except a whitespace
-   x <--- we specify -x to get both the INT and CHAR values
+    / <--- access only the value specified after it
+    - <--- this can be anything except a whitespace
+    x <--- we specify -x to get both the INT and CHAR values
 
 We have some variations, such as /D- and /d- that mean
 respectively non-digit and digit, or CHAR and INT.
