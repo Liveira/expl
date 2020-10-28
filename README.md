@@ -44,7 +44,7 @@ look at this example:
 again, save it as main.exc and run excc, you will see
 this:
 
-> h 1234
+> 1234 h
 
 I have a few things to explain here, first, the '#'
 is for indicating a variable, like '$' in php. Next,
