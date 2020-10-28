@@ -59,3 +59,27 @@ last, we have the /-xa thing, we can break this to:
 
 We have some variations, such as /D- and /d- that mean
 respectively non-digit and digit, or CHAR and INT.
+
+###### Loops
+Loops are cool, and they are relatively easy to do in
+expl, see this example:
+
+    {5
+     >a
+    }
+    N
+this will result in:
+>aaaaa
+
+You may be thinking, "oh! So it executes the code inside
+The curly braces 5 times!", well, yes, but actually no,
+it executes __each line__ 5 times, so, it's not like that:
+
+    Execute 5 times:
+       Print hi
+       Print bye;
+
+it is more like that:
+
+    Print hi 5 times;
+    Print bye 5 times;
