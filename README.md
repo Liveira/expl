@@ -70,7 +70,7 @@ expl, see this example:
     }
     N
 this will result in:
->aaaaa
+> aaaaa
 
 You may be thinking, "oh! So it executes the code inside
 The curly braces 5 times!", well, yes, but actually no,
@@ -84,3 +84,12 @@ it is more like that:
 
     Print hi 5 times;
     Print bye 5 times;
+
+And of course, you can have nested loops:
+    
+    {5
+     {8
+      >a
+     }
+    }
+

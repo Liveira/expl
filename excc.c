@@ -28,13 +28,14 @@ struct Container {
 
 typedef char *String;
 int state = 0;
-int loopst= 0;
 struct Container variables[100];
 int used = 0;
 int queue[4];
 int imm;
-int times;
+int current = 0;
+int loops[10] = {0,0,0,0,0,0,0,0,0,0};
 char tempst = 'J';
+int times;
 int Qp = 0;
 
 int pow_(int base,int exp){
@@ -265,7 +266,8 @@ int eval(char operation, String context){
 		break;
 		case LOOP_FOR:
 			times = number(substr(lookfor(LOOP_FOR,context)+1,LINE,context));
-			loopst = 2;
+			loops[current] = times;
+			current += 1;
 		break;
 		case INPT_CHR:
 			if(lookfor(DECL_VAR,context) != -1){
@@ -310,20 +312,23 @@ int main()
 		if(state == 1  && buf[0] == ']'){
 			state = 0;
 		}
-		if(loopst == 2 && buf[0] != '}'){
-			for(int w = 0;w < times;w++){
-				for(int cc = 0; cc < 14;cc++){
-					if(lookfor(reserved[cc],buf) != -1){
-						eval(reserved[cc],buf);
+		for(int l = 0;l < 10;l++){
+			if(loops[l] != 0){
+				for(int w = 0;w < loops[l];w++){
+					for(int cc = 0; cc < 14;cc++){
+						if(lookfor(reserved[cc],buf) != -1 && buf[0] != '}'){
+							eval(reserved[cc],buf);
+						}
+						else if(buf[0] == '}'){
+							loops[l] = 0;
+						}
 					}
 				}
 			}
 		}
-		else{
-			loopst = 0;
-		}
+		current = 0;
 		for(int bc = 0; bc < 14; bc++){
-			if(lookfor(reserved[bc],buf) != -1 && state == 0 && loopst == 0){
+			if(lookfor(reserved[bc],buf) != -1 && state == 0 && current == 0){
 				eval(reserved[bc],buf);
 			}
 		}
