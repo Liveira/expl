@@ -4,6 +4,7 @@
 
 #define LINE 255
 
+#define PREP_ARG '('
 #define DECL_VAR '#'
 #define ACCS_ELM '/'
 #define TEST_CTN '['
@@ -18,7 +19,8 @@
 #define QUEUE_IT '*'
 #define LOOP_FOR '{'
 #define INPT_CHR '<'
-#define CHTO_NUM '$'
+#define CHTO_NUM ':'
+#define PRNT_VAR '@'
 
 struct Container {
 	char Name;
@@ -28,13 +30,13 @@ struct Container {
 
 typedef char *String;
 int state = 0;
-struct Container variables[100];
 int used = 0;
 int queue[4];
 int imm;
 int current = 0;
-int loops[10] = {0,0,0,0,0,0,0,0,0,0};
 char tempst = 'J';
+struct Container variables[100];
+int loops[10] = {0,0,0,0,0,0,0,0,0,0};
 int times;
 int Qp = 0;
 
@@ -175,8 +177,7 @@ int eval(char operation, String context){
 		break;
 		case OPUT_CHR:
 			operation_index = lookfor(OPUT_CHR,context);
-			if(lookfor(DECL_VAR,context) != -1){
-				rmall(DECL_VAR,context);
+			if(lookfor(PRNT_VAR,context) != -1){
 				if(lookfor(ACCS_ELM,context) != -1){
 					var_index = lookfor_var(context[lookfor('/',context) + 3]);
 					if(context[lookfor('/',context)+1] != 'd' && context[lookfor('/',context)+2] != 'x'){
@@ -246,9 +247,6 @@ int eval(char operation, String context){
 				break;
 			}
 		break;
-		case LINE_NEW:
-			printf("\n");
-		break;
 		case QUEUE_IT:
 			var_index = lookfor_var(context[lookfor(QUEUE_IT,context)+1]);
 			if(var_index != -1){
@@ -273,7 +271,8 @@ int eval(char operation, String context){
 			if(lookfor(DECL_VAR,context) != -1){
 				var_index = lookfor_var(context[lookfor(DECL_VAR,context)+1]);
 				if(var_index != -1){
-					variables[var_index].c_val = getchar();
+					temp = getchar();
+					if(temp != '\n') variables[var_index].c_val = temp;
 				}
 			}
 			else{
@@ -292,13 +291,13 @@ int eval(char operation, String context){
 	}
 }
 
-int main()
+int main(int argc,char *argv[])
 {
 	FILE *fh;
 	for(int g = 0;g < 4;g++){
 		queue[g] = 0;
 	}
-	char reserved[14] = {OPUT_CHR,TEST_CTN,INPT_CHR,CHTO_NUM,LOOP_FOR,PUSH_ALL,PULL_ALL,QUEUE_IT,_ADD_NUM,SUBT_NUM,DECL_VAR,LINE_NEW,ACCS_ELM};
+	char reserved[14] = {PREP_ARG,OPUT_CHR,TEST_CTN,INPT_CHR,CHTO_NUM,LOOP_FOR,PUSH_ALL,PULL_ALL,QUEUE_IT,_ADD_NUM,SUBT_NUM,DECL_VAR,ACCS_ELM};
 
 	if((fh = fopen("main.exc","r")) == NULL){
 		exit(1);
@@ -311,6 +310,17 @@ int main()
 		rmall('\t',buf);
 		if(state == 1  && buf[0] == ']'){
 			state = 0;
+		}
+		switch(buf[0]){
+			case 'C':
+				system("clear");
+			break;
+			case 'N':
+				printf("\n");
+			break;
+			case 'E':
+				printf(" ");
+			break;
 		}
 		for(int l = 0;l < 10;l++){
 			if(loops[l] != 0){
